@@ -322,7 +322,7 @@ exports.default = {
             _this.$emit('show', event);
 
             _this.$nextTick(function () {
-              var position = _this.getDropdownPosition(target, _this.$refs.dropdown, direction);
+              var position = _this.getDropdownPosition(event, _this.$refs.dropdown, direction);
 
               _this.position = {
                 left: position.left + 'px',
@@ -340,6 +340,8 @@ exports.default = {
       }
     },
     getDropdownPosition: function getDropdownPosition(target, dropdown, direction) {
+      var target = event.target;
+	    
       var trRect = target.getBoundingClientRect();
       var ddRect = dropdown.getBoundingClientRect();
 
@@ -347,7 +349,7 @@ exports.default = {
       var scrollLeft = window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft;
 
       var offsetLeft = trRect.left + scrollLeft;
-      var offsetTop = trRect.top + scrollTop;
+      var offsetTop = event.srcEvent.pageY - event.srcEvent.layerY;
 
       var shiftY = 0.5 * (ddRect.height + trRect.height);
 
